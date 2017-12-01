@@ -73,7 +73,7 @@ class LoginEvents implements View.OnClickListener{
             this.login.listener.OnClickedRegister();
 
         } else if (view.getId() == R.id.btnLogSignIn) {
-            this.login.listener.OnClickedLogin();
+            this.login.listener.OnClickedLogin(login.txtfEmail.getText().toString(),login.txtfPas.getText().toString());
         }
     }
 

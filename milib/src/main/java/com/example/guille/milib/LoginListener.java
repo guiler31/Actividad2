@@ -6,6 +6,6 @@ package com.example.guille.milib;
 
 public interface LoginListener {
     public void OnClickedRegister();
-    public void OnClickedLogin();
+    public void OnClickedLogin(String strUser, String strPass);
 }
 

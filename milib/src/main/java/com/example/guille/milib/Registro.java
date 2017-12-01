@@ -33,11 +33,14 @@ public class Registro extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_registro, container, false);
-
         events = new RegistroEvents(this);
+
         txtfEmail=v.findViewById(R.id.txtfRegEmail);
         txtfPass=v.findViewById(R.id.txtfRegPassword);
         txtfRpPass=v.findViewById(R.id.txtfRegRpPassword);
+
+        btnRegister = v.findViewById(R.id.btnRegRegister);
+        btnCancel = v.findViewById(R.id.btnRegCancel);
         btnCancel.setOnClickListener(events);
         btnRegister.setOnClickListener(events);
 
