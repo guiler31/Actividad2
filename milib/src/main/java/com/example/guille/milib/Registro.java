@@ -62,8 +62,8 @@ class RegistroEvents implements View.OnClickListener {
             this.registro.registroListener.OnClickCancel();
 
         } else if (view.getId() == R.id.btnRegRegister) {
-            if (registro.txtfPass.equals(registro.txtfRpPass)){
-                this.registro.registroListener.OnClickRegister();
+            if (registro.txtfPass.getText().toString().equals(registro.txtfRpPass.getText().toString())){
+                this.registro.registroListener.OnClickRegister(registro.txtfEmail.getText().toString(),registro.txtfPass.getText().toString());
             }
 
         }

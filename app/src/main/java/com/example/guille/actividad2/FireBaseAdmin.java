@@ -3,6 +3,7 @@ package com.example.guille.actividad2;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,35 +32,6 @@ public class FireBaseAdmin {
 
 
     public void loginWithEmailPass(final String email, final String password){
-        System.out.println(password+"-----------------------------------"+ email);
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(FireBaseAdmin.this.activity, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            //Log.d(TAG, "createUserWithEmail:success");
-
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            FireBaseAdmin.this.listener.fireBaseAdminUserConnected(true);
-
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            //Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
-                            //        Toast.LENGTH_SHORT).show();
-                            FireBaseAdmin.this.listener.fireBaseAdminUserConnected(false);
-                        }
-
-                        // ...
-                    }
-                });
-    }
-
-
-    public void signIn(String email, String password) {
-
-        System.out.println(password+"-----------------------------------"+ email);
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -76,6 +48,35 @@ public class FireBaseAdmin {
                         // ...
                     }
                 });
+
+    }
+
+
+    public void regis(String email, String password) {
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(FireBaseAdmin.this.activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            //Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            listener.fireBaseAdminUserConnected(true);
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            //Toast.makeText(EmailPasswordActivity.this, "Authentication failed.",
+                            //        Toast.LENGTH_SHORT).show();
+                            FireBaseAdmin.this.listener.fireBaseAdminUserConnected(false);
+                        }
+
+                        // ...
+                    }
+                });
+
 
     }
 

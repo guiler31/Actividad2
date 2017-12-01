@@ -28,9 +28,13 @@ public class Main extends AppCompatActivity {
         login = (Login) getSupportFragmentManager().findFragmentById(R.id.fragLogin);
         registro = (Registro) getSupportFragmentManager().findFragmentById(R.id.fragRegistro);
         blankFragment = (BlankFragment) getSupportFragmentManager().findFragmentById(R.id.fragBlanck);
-        fireBaseAdmin = new FireBaseAdmin(this);
 
         mainActivityEvents = new MainActivityEvents(this);
+
+        fireBaseAdmin = new FireBaseAdmin(this);
+        fireBaseAdmin.setListener(mainActivityEvents);
+
+
 
         login.setListener(mainActivityEvents);
         registro.setListener(mainActivityEvents);
@@ -66,7 +70,12 @@ class MainActivityEvents implements LoginListener, RegistroListener, FireBaseAdm
     //Login
     @Override
     public void OnClickedLogin(String strUser, String strPass) {
-    this.main.fireBaseAdmin.loginWithEmailPass(strUser, strPass);
+        try {
+            this.main.fireBaseAdmin.loginWithEmailPass(strUser, strPass);
+        }catch (Exception e){
+
+        }
+
 
     }
 
@@ -83,20 +92,38 @@ class MainActivityEvents implements LoginListener, RegistroListener, FireBaseAdm
 
     //register
     @Override
-    public void OnClickRegister() {
+    public void OnClickRegister(String strUser, String strPass) {
+
+            this.main.fireBaseAdmin.regis(strUser, strPass);
+
+            Log.v("firebaseadmin","el resultado es: ");
+
 
 
     }
 
     @Override
     public void fireBaseAdminUserConnected(boolean blconnected) {
-
+        if(blconnected){
+            FragmentTransaction transaction = this.main.getSupportFragmentManager().beginTransaction();
+            transaction.hide(this.main.registro);
+            transaction.show(this.main.blankFragment);
+            transaction.hide(this.main.login);
+            transaction.commit();
+        }
 
     }
 
     @Override
-    public void fireBaseAdminUserRegister(boolean blconnected) {
+    public void fireBaseAdminUserRegister(boolean blregistered) {
 
+        if(blregistered){
+            FragmentTransaction transaction = this.main.getSupportFragmentManager().beginTransaction();
+            transaction.hide(this.main.registro);
+            transaction.show(this.main.blankFragment);
+            transaction.hide(this.main.login);
+            transaction.commit();
+        }
 
     }
 }

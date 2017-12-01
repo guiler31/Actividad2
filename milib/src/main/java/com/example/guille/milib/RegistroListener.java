@@ -7,5 +7,5 @@ package com.example.guille.milib;
 public interface RegistroListener {
     public void OnClickCancel();
 
-    public void OnClickRegister();
+    public void OnClickRegister(String strUser, String strPass);
 }
